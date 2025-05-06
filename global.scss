@@ -1,0 +1,81 @@
+// src/assets/scss/global.scss
+
+// 基础变量
+$primary-color: #00ab6b;
+$hover-color: #038252;
+$text-color: rgba(0, 0, 0, 0.8);
+
+// 混合指令
+@mixin transition($property) {
+  transition: $property 0.3s ease-in-out;
+}
+
+// 全局样式
+a {
+  color: $primary-color;
+  @include transition(all);
+  
+  &:hover {
+    color: $hover-color;
+    text-decoration: none;
+  }
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+// 文章内容样式
+.article-post {
+  font-family: 'Merriweather', serif;
+  line-height: 1.8;
+  color: $text-color;
+
+  p {
+    margin-bottom: 1.5rem;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    @include transition(opacity);
+    
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+}
+
+// 响应式断点
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == desktop {
+    @media (min-width: 1200px) { @content; }
+  }
+  @if $breakpoint == tablet {
+    @media (min-width: 768px) and (max-width: 1199px) { @content; }
+  }
+  @if $breakpoint == mobile {
+    @media (max-width: 767px) { @content; }
+  }
+}
+
+// 导航栏适配
+.mediumnavigation {
+  .navbar-brand {
+    img {
+      max-height: 40px;
+      @include respond-to(mobile) {
+        max-height: 30px;
+      }
+    }
+  }
+
+  .nav-link {
+    @include respond-to(desktop) {
+      padding: 0.5rem 1.2rem;
+    }
+  }
+}
