@@ -1,27 +1,25 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router' // 使用Vue 3语法
 import Home from '@/views/Home.vue'
 import Detail from '@/views/Detail.vue'
 import About from '@/views/About.vue'
 
-Vue.use(Router)
-
-export default new Router({
+export default createRouter({
+  history: createWebHistory(),
   routes: [
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: () => import("@/views/Home.vue") 
     },
     {
-      path: '/detail',
+      path: '/detail/:id', // 添加动态参数
       name: 'detail',
-      component: Detail
+      component: () => import("@/views/Detail.vue") 
     },
     {
       path: '/about',
       name: 'about',
-      component: About
+      component: () => import("@/views/About.vue") 
     }
   ]
 })

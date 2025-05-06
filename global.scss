@@ -1,8 +1,12 @@
 // src/assets/scss/global.scss
 
 // 基础变量
+// 确保Bootstrap变量覆盖在导入Bootstrap之前
 $primary-color: #00ab6b;
 $hover-color: #038252;
+
+// 然后导入Bootstrap
+@import 'bootstrap/scss/bootstrap';
 $text-color: rgba(0, 0, 0, 0.8);
 
 // 混合指令

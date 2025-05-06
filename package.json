@@ -1,0 +1,32 @@
+{
+  "name": "test-futureedu",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Candice-Each/test-FutureEdu.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Candice-Each/test-FutureEdu/issues"
+  },
+  "homepage": "https://github.com/Candice-Each/test-FutureEdu#readme",
+  "description": "",
+  "dependencies": {
+    "bootstrap": "^5.3.6",
+    "lunr": "^2.3.9",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.3",
+    "vite": "^6.3.5"
+  }
+}
