@@ -56,10 +56,10 @@
 <script>
 import { ref, computed, onMounted } from 'vue'
 import lunr from 'lunr'
-import NavBar from '@/components/NavBar'
-import ArticleCard from '@/components/ArticleCard'
-import Pagination from '@/components/Pagination'
-import Gallery from '@/components/Gallery'
+import NavBar from '@/components/NavBar.vue'
+import ArticleCard from '@/components/ArticleCard.vue'
+import Pagination from '@/components/Pagination.vue'
+import Gallery from '@/components/Gallery.vue'
 
 export default {
   components: {
@@ -216,10 +216,8 @@ export default {
 }
 
 /* 深度选择器 */
-::v-deep .bootstrap-component {
-  .dropdown-menu {
-    border-radius: 0.5rem;
-  }
+:deep(.dropdown-menu) {
+  border-radius: 0.5rem;
 }
 
 .alert-info {
