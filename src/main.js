@@ -14,3 +14,12 @@ import '@/assets/css/main.css'
 const app = createApp(App)
 app.use(router)
 app.mount('#app')
+
+import VueLazyload from 'vue-lazyload'
+
+app.use(VueLazyload, {
+  preLoad: 1.3,
+  error: require('@/assets/images/placeholder.jpg'),
+  loading: require('@/assets/images/loading.gif'),
+  attempt: 3
+})

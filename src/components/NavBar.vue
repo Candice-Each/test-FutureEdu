@@ -2,10 +2,10 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top mediumnavigation nav-down">
     <div class="container pr-0">
       <router-link class="navbar-brand" to="/">
-        <img src="../assets/images/logo.png" alt="AAA">
+        <img :src="require('@/assets/images/logo.png')" alt="AAA">
       </router-link>
 
-      <button class="navbar-toggler" type="button" @click="toggleMenu">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMediumish" @click="toggleMenu">
         <span class="navbar-toggler-icon"></span>
       </button>
 
@@ -52,3 +52,16 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.mediumnavigation .navbar-brand img {
+  max-height: 40px;
+  transition: max-height 0.3s;
+}
+
+@media (max-width: 768px) {
+  .mediumnavigation .navbar-brand img {
+    max-height: 30px;
+  }
+}
+</style>

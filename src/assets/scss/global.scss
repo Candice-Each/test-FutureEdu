@@ -83,3 +83,23 @@ a {
     }
   }
 }
+
+.listrecent {
+  margin: 0 -15px; // 修复卡片间距
+}
+
+.featured-box-img-cover {
+  border-radius: 4px; // 与HTML版本保持一致
+  transition: opacity 0.3s ease; // 添加悬停动画
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+mark {
+  background-color: #fff3cd;
+  padding: 0 2px;
+  @supports (-webkit-touch-callout: none) {
+    background: linear-gradient(to bottom, #fff3cd, #ffe69c); // Safari兼容
+  }
+}

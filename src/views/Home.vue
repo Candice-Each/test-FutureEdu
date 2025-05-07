@@ -26,13 +26,8 @@
         </div>
 
         <transition-group name="staggered-fade" tag="div" class="row listrecent">
-          <ArticleCard
-            v-for="article in displayedArticles"
-            :key="article.id"
-            :article="article"
-            :search-query="searchQuery"
-            v-lazyload
-          />
+          <ArticleCard v-for="article in displayedArticles" :key="article.id" :article="article"
+            :search-query="searchQuery" v-lazyload />
         </transition-group>
 
         <!-- 无结果提示 -->
@@ -43,12 +38,8 @@
       </section>
 
       <!-- 分页组件（仅在非搜索状态显示） -->
-      <Pagination
-        v-if="!searchQuery"
-        :current-page="currentPage"
-        :total-pages="totalPages"
-        @page-changed="handlePageChange"
-      />
+      <Pagination v-if="!searchQuery" :current-page="currentPage" :total-pages="totalPages"
+        @page-changed="handlePageChange" />
     </div>
   </main>
 </template>
@@ -68,7 +59,7 @@ export default {
     Pagination,
     Gallery
   },
-  
+
   setup() {
     const description = ref('探索未来教育新模式')
     const currentPage = ref(1)
@@ -100,7 +91,7 @@ export default {
 
     // 初始化搜索引擎
     const initSearchEngine = () => {
-      searchIndex.value = lunr(function() {
+      searchIndex.value = lunr(function () {
         this.ref('id')
         this.field('title', { boost: 10 })
         this.field('description', { boost: 5 })
@@ -119,24 +110,32 @@ export default {
 
     // 搜索处理
     const handleSearch = (query) => {
-      const cleanQuery = query.trim()
-      searchQuery.value = cleanQuery
-      
-      if (cleanQuery.length > 1) {
-        try {
-          const searchTerms = cleanQuery.split(/\s+/)
-          const queryString = searchTerms.map(term => `*${term}*`).join(' ')
-          const results = searchIndex.value.search(queryString)
-          
-          filteredArticles.value = results.map(result => 
-            articles.value.find(article => article.id === parseInt(result.ref))
-          ).filter(Boolean)
-        } catch (error) {
-          console.error('搜索出错:', error)
-          filteredArticles.value = []
+      try {
+        const cleanQuery = query.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+
+        searchQuery.value = cleanQuery
+
+        if (cleanQuery.length > 1) {
+          try {
+            const searchTerms = cleanQuery.split(/\s+/)
+            const queryString = searchTerms.map(term => `*${term}*`).join(' ')
+            const results = searchIndex.value.search(queryString)
+
+            filteredArticles.value = results.map(result =>
+              articles.value.find(article => article.id === parseInt(result.ref))
+            ).filter(Boolean)
+          } catch (error) {
+            console.error('搜索出错:', error)
+            filteredArticles.value = []
+          }
+        } else {
+          resetSearch()
         }
-      } else {
-        resetSearch()
+      } catch (error) {
+        console.error('搜索出错:', error);
+        filteredArticles.value = [];
+        // 添加错误提示
+        alert('搜索服务暂时不可用，请稍后再试');
       }
     }
 
@@ -147,11 +146,11 @@ export default {
     }
 
     // 计算属性
-    const displayedArticles = computed(() => 
+    const displayedArticles = computed(() =>
       filteredArticles.value || articles.value
     )
 
-    const currentCategory = computed(() => 
+    const currentCategory = computed(() =>
       searchQuery.value ? '搜索结果' : '最新文章'
     )
 
@@ -181,10 +180,13 @@ export default {
 
 <style scoped>
 /* 淡入淡出过渡 */
-.fade-enter-active, .fade-leave-active {
+.fade-enter-active,
+.fade-leave-active {
   transition: opacity 0.3s ease;
 }
-.fade-enter-from, .fade-leave-to {
+
+.fade-enter-from,
+.fade-leave-to {
   opacity: 0;
 }
 
@@ -192,12 +194,15 @@ export default {
 .staggered-fade-move {
   transition: transform 0.5s ease;
 }
+
 .staggered-fade-enter-active {
-  transition: all 0.3s ease 0.1s;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
+
 .staggered-fade-leave-active {
-  transition: all 0.3s ease;
+  transition: all 0.2s ease-out;
 }
+
 .staggered-fade-enter-from,
 .staggered-fade-leave-to {
   opacity: 0;
@@ -209,7 +214,7 @@ export default {
   .mainheading {
     text-align: center;
   }
-  
+
   .listrecent {
     margin: 0 -10px;
   }
@@ -229,7 +234,25 @@ export default {
 .btn-link {
   color: #1976d2;
 }
+
 .btn-link:hover {
   text-decoration: underline;
+}
+</style>
+
+<style scoped>
+/* 添加移动端适配 */
+@media (max-width: 768px) {
+  .listrecent {
+    margin: 0;
+  }
+
+  .card-title {
+    font-size: 1.1rem;
+  }
+
+  .card-text {
+    font-size: 0.9rem;
+  }
 }
 </style>
