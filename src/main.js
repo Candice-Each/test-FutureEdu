@@ -11,13 +11,14 @@ import '@/assets/scss/global.scss'
 import '@/assets/css/screen.css'
 import '@/assets/css/main.css'
 import VueLazyload from 'vue-lazyload'
+import logoImage from '@/assets/images/logo.png'
 
 const app = createApp(App)
 app.use(router)
 app.use(VueLazyload, {
   preLoad: 1.3,
-  error: require('@/assets/images/placeholder.jpg'),
-  loading: require('@/assets/images/loading.gif'),
+  error: logoImage,
+  loading: logoImage,
   attempt: 3
 })
 app.mount('#app')
