@@ -10,16 +10,14 @@ import 'bootstrap'
 import '@/assets/scss/global.scss'
 import '@/assets/css/screen.css'
 import '@/assets/css/main.css'
+import VueLazyload from 'vue-lazyload'
 
 const app = createApp(App)
 app.use(router)
-app.mount('#app')
-
-import VueLazyLoad from 'vue3-lazyload'
-
 app.use(VueLazyload, {
   preLoad: 1.3,
   error: require('@/assets/images/placeholder.jpg'),
   loading: require('@/assets/images/loading.gif'),
   attempt: 3
 })
+app.mount('#app')
