@@ -1,19 +1,22 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
+import { fileURLToPath, URL } from "node:url";
 
 export default defineConfig({
+    base: "/test-FutureEdu/",          // ← 关键：GitHub Pages 子路径
     plugins: [vue()],
     resolve: {
         alias: {
-            '@': '/src' // 确保路径别名正确
+            // 用绝对路径，避免部署到子路径 / Windows 下解析出错
+            "@": fileURLToPath(new URL("./src", import.meta.url))
         }
     },
     server: {
         host: "localhost",
         port: 5173,
-        open: true // 自动打开浏览器
+        open: true
     },
     css: {
-        devSourcemap: false // 临时关闭开发环境 SourceMap
+        devSourcemap: false
     }
 });
