@@ -15,7 +15,7 @@ const app = createApp(App)
 app.use(router)
 app.mount('#app')
 
-import VueLazyload from 'vue-lazyload'
+import VueLazyLoad from 'vue3-lazyload'
 
 app.use(VueLazyload, {
   preLoad: 1.3,
